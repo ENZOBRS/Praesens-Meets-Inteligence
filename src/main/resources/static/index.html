@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Clínica Innovare - Agendamento</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        #resultado { margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-left: 5px solid #28a745; display: none; }
+    </style>
+</head>
+<body>
+    <h2>Novo Agendamento</h2>
+    <input type="text" id="nome" placeholder="Nome do Paciente">
+    <input type="text" id="cpf" placeholder="CPF (apenas números)">
+    <button onclick="enviarAgendamento()">Agendar</button>
+
+    <div id="resultado"></div>
+
+    <hr>
+    <button onclick="window.location.href='/painel.html'">Ver Painel</button>
+
+    <script>
+        async function enviarAgendamento() {
+            const nome = document.getElementById('nome').value;
+            const cpf = document.getElementById('cpf').value;
+            const resDiv = document.getElementById('resultado');
+
+            try {
+                // Chama a URL que você testou antes, mas via código
+                const response = await fetch(`/api/agendar?cpf=${cpf}&nome=${nome}`);
+                const texto = await response.text();
+                
+                resDiv.style.display = 'block';
+                resDiv.innerText = texto;
+            } catch (error) {
+                alert("Erro ao conectar com o servidor.");
+            }
+        }
+    </script>
+</body>
+</html>
