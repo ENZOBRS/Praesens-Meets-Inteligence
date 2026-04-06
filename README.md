@@ -1,4 +1,4 @@
-**# Meets-praesens
+# Meets-praesens
 
 > **Status:** 🚀 Entrega 2 Concluída | API & Banco de Dados Integrados
 
