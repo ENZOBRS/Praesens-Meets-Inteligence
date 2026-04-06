@@ -29,6 +29,8 @@ Nesta etapa, o foco foi a construção da infraestrutura técnica e a persistên
 * ✅ **História de Usuário 3: Documentação Interativa da API**
     * **O que foi feito:** Implementação e configuração do Swagger UI (OpenAPI) no ecossistema Spring Boot.
     * **Valor gerado:** Facilita o teste dos endpoints e permite que a equipe visualize todas as rotas disponíveis sem precisar ler o código-fonte.
+    
+    
     * ![Print das Issues](./issues.png.png)
 
 ---
