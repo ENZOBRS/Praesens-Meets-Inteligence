@@ -1,5 +1,7 @@
 package br.com.meets.cesar.praesens.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -12,7 +14,7 @@ public class PacienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID_Paciente;
-
+    
     @Email
     @Column(nullable = true)
     @Setter private String email;
