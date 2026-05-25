@@ -31,9 +31,6 @@ public class AgendamentoModel {
     @Setter private Double Valor_Procedimento;
     @Setter private String status;
 
-    @Column(nullable = true)
-    @Setter private Double Probabilidade_Falta = 0.0;
-
     @Column(name = "lead_time", nullable = false)
     @Setter private Integer leadTime;
 }

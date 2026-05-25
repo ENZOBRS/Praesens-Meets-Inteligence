@@ -15,8 +15,15 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/agendamentos")
 public class AgendamentoController {
+
     @Autowired
     private AgendamentoService agendamentoService;
+
+    @PostMapping("/admin/agendar")
+    public ResponseEntity<AgendamentoModel> agendarPelaClinica(@RequestBody AgendamentoInputDTO dados) {
+        AgendamentoModel salvo = agendamentoService.salvar(dados, false);
+        return ResponseEntity.status(201).body(salvo);
+    }
 
     @PostMapping
     public ResponseEntity<AgendamentoModel> criar(@RequestBody AgendamentoInputDTO agendamento) {
@@ -35,11 +42,6 @@ public class AgendamentoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/admin/agendar")
-        public AgendamentoModel agendarPelaClinica(@RequestBody AgendamentoInputDTO dados) {
-            return agendamentoService.salvar(dados, true);
-        }
-
     @GetMapping("/disponibilidade")
     public ResponseEntity<List<PainelDTO>> consultarDisponibilidade(
             @RequestParam("data") String data) {
@@ -47,3 +49,4 @@ public class AgendamentoController {
         return ResponseEntity.ok(agendamentoService.consultarDisponibilidade(dataConsulta));
     }
 }
+

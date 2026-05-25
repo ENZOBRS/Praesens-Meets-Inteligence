@@ -23,30 +23,27 @@ public class AgendamentoService {
     private PacienteRepository pacienteRepository;
 
     public AgendamentoModel salvar(AgendamentoInputDTO agendamento, boolean isOperacaoClinica) {
-        long totalMesmoHorario = agendamentoRepository.countByHoraAndData(agendamento.getHora(), agendamento.getData());
-        int limitePermitido = isOperacaoClinica ? 2 : 1;
-        if (totalMesmoHorario >= limitePermitido) {
-            
+        Long totalMesmoHorario = agendamentoRepository.countByHoraAndData(agendamento.getHora(), agendamento.getData());
+        int limite = isOperacaoClinica ? 2 : 1;
+        if (totalMesmoHorario >= limite) {
+            throw new RuntimeException("Limite de consultas atingido");
         }
-
         PacienteModel paciente = pacienteRepository.findByEmail(agendamento.getEMail()).orElseGet(() -> {
-            PacienteModel novoPaciente = new PacienteModel();
-            novoPaciente.setEmail(agendamento.getEMail());
-            novoPaciente.setNome(agendamento.getNomePaciente());
-            novoPaciente.setCpf(agendamento.getCpf());
-            novoPaciente.setHistorico_NoShow(0);
-            novoPaciente.setTotalAgendamentos(0);
-            novoPaciente.setTelefone(agendamento.getTelefone());
-            return pacienteRepository.save(novoPaciente);
+            PacienteModel pacienteNovo = new PacienteModel();
+            pacienteNovo.setEmail(agendamento.getEMail());
+            pacienteNovo.setNome(agendamento.getNomePaciente());
+            pacienteNovo.setTelefone(agendamento.getTelefone());
+            pacienteNovo.setHistorico_NoShow(0);
+            pacienteNovo.setScore_Honra(0);
+            pacienteNovo.setTotalAgendamentos(1);
+            return pacienteRepository.save(pacienteNovo);
         });
-
-        //aumentar o número total de agendamentos
-        paciente.setTotalAgendamentos(paciente.getTotalAgendamentos()+1);
-        pacienteRepository.save(paciente);
-
-        //calc do leadtime
+        
         long diferencaDias = ChronoUnit.DAYS.between(LocalDate.now(), agendamento.getData());
         int leadTimeCalculado = (int) Math.max(diferencaDias, 0); 
+
+        paciente.setTotalAgendamentos(paciente.getTotalAgendamentos()+1);
+        pacienteRepository.save(paciente);
 
         AgendamentoModel novoAgendamento = new AgendamentoModel();
         novoAgendamento.setLocalidade(agendamento.getLocalidade());
