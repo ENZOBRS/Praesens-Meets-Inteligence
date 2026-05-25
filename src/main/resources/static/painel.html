@@ -12,24 +12,6 @@
             padding: 40px 20px;
             color: #333;
         }
-<<<<<<< HEAD
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 900px; margin: 20px auto; padding: 20px; background-color: #333; color: #333;}
-        .card { background: var(--bg); padding: 0px 20px 20px 20px; margin-bottom: 30px; border: 2px solid #000; }
-        .header-menu { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding: 10px 0; margin-bottom: 20px; font-weight: bold;}
-        .header-menu span { margin-right: 15px; cursor: pointer;}
-        h2 { font-size: 1.2rem; font-weight: normal; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: var(--bg); border: 2px solid #000;}
-        th, td { border: 2px solid #000; padding: 8px; text-align: center; font-size: 0.9rem;}
-        th { background-color: #e9ecef; font-weight: normal; }
-        .col-horario { width: 60px; }
-        .col-paciente { text-align: left; }
-        .btn-acao { background-color: var(--bg); color: #333; border: none; cursor: pointer; text-decoration: none;}
-        .btn-acao:hover { text-decoration: underline; }
-        .legenda-risco { display: flex; justify-content: center; margin-top: 30px; width: 80%; margin-left: auto; margin-right: auto;}
-        .legenda-risco table { margin-top: 5px;}
-        .legenda-risco th, .legenda-risco td { padding: 5px; font-size: 0.8rem;}
-        .btn-voltar { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #fff; font-weight: bold; }
-=======
         .btn-voltar {
             display: inline-block;
             margin-bottom: 20px;
@@ -82,7 +64,6 @@
             font-weight: 500;
         }
         .btn-acao:hover { background-color: #3a6fd4; }
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
     </style>
 </head>
 <body>
@@ -91,31 +72,12 @@
     </div>
 
     <div class="card">
-<<<<<<< HEAD
-        <div class="header-menu">
-            <div>
-                <span>Início</span>
-                <span>Agendamentos</span>
-                <span>Pacientes</span>
-                <span>Relatórios</span>
-            </div>
-            <span>Login</span>
-        </div>
-
-        <h2 id="titulo-data">Agenda do dia: carregando...</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th class="col-horario">Hora</th>
-=======
         <h2>Agendamentos</h2>
         <table>
             <thead>
                 <tr>
                     <th>Data</th>
                     <th>Hora</th>
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                     <th>Pacientes</th>
                     <th>Procedimento</th>
                     <th>Risco de falta</th>
@@ -124,42 +86,11 @@
             </thead>
             <tbody id="tabela-agendamentos"></tbody>
         </table>
-<<<<<<< HEAD
-
-        <div class="legenda-risco">
-            <table>
-                <thead>
-                    <tr>
-                        <th style="border: none;"></th>
-                        <th style="border: none; font-weight: normal; font-size: 0.8rem;">Baixo</th>
-                        <th style="border: none; font-weight: normal; font-size: 0.8rem;">Mediano</th>
-                        <th style="border: none; font-weight: normal; font-size: 0.8rem;">Alto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="background-color: #e9ecef;">Nível de risco</td>
-                        <td>de 1% até 35%</td>
-                        <td>de 36% até 60%</td>
-                        <td>acima de 60%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-=======
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
     </div>
 
     <script>
         const API = 'http://localhost:8080';
 
-<<<<<<< HEAD
-        // Mostra a data de hoje no título
-        const hoje = new Date().toLocaleDateString('pt-BR');
-        document.getElementById('titulo-data').textContent = `Agenda do dia: ${hoje}`;
-
-=======
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
         async function getRisco(id) {
             try {
                 const res = await fetch(`${API}/api/risco/${id}`);
@@ -170,11 +101,7 @@
 
         async function carregarPainel() {
             const corpo = document.getElementById('tabela-agendamentos');
-<<<<<<< HEAD
-            corpo.innerHTML = '<tr><td colspan="5">Carregando...</td></tr>';
-=======
             corpo.innerHTML = '<tr><td colspan="6">Carregando...</td></tr>';
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
 
             try {
                 const res = await fetch(`${API}/api/agendamentos`);
@@ -182,11 +109,7 @@
 
                 const comRisco = await Promise.all(
                     agendamentos.map(async (a) => {
-<<<<<<< HEAD
-                        const risco = await getRisco(a.id_Agendamento);
-=======
                         const risco = await getRisco(a.id);
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                         return { ...a, risco };
                     })
                 );
@@ -194,43 +117,26 @@
                 corpo.innerHTML = '';
 
                 if (comRisco.length === 0) {
-<<<<<<< HEAD
-                    corpo.innerHTML = '<tr><td colspan="5">Nenhum agendamento encontrado.</td></tr>';
-=======
                     corpo.innerHTML = '<tr><td colspan="6">Nenhum agendamento encontrado.</td></tr>';
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                     return;
                 }
 
                 comRisco.forEach(a => {
-<<<<<<< HEAD
-=======
                     const data = a.data
                         ? new Date(a.data + 'T00:00:00').toLocaleDateString('pt-BR')
                         : '-';
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                     const riscoTexto = a.risco?.nivelRisco ?? '-';
                     const prob = a.Probabilidade_Falta != null
                         ? `${(a.Probabilidade_Falta * 100).toFixed(0)}% (${riscoTexto})`
                         : riscoTexto;
-<<<<<<< HEAD
-
-=======
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                     const horario = a.hora ?? '-';
                     const nome = a.paciente?.nome ?? '-';
                     const procedimento = a.Tipo_Procedimento ?? '?';
 
-<<<<<<< HEAD
+                    const botaoAcao = a.status === 'CANCELADO'
+                        ? `<button class="btn-acao" disabled style="background-color: #a0a0a0; cursor: not-allowed;">Falta Registrada</button>`
+                        : `<button class="btn-acao" onclick="confirmarAgendamento(${a.id})">Marcar Falta</button>`;
 
-                    corpo.innerHTML += `
-                        <tr>
-                            <td class="col-horario">${horario}</td>
-                            <td class="col-paciente">${nome}</td>
-                            <td>${procedimento}</td>
-                            <td>${prob}</td>
-                            <td><button class="btn-acao" onclick="confirmarAgendamento(${a.id_Agendamento})">Confirmar [x]</button></td>
-=======
                     corpo.innerHTML += `
                         <tr>
                             <td>${data}</td>
@@ -238,17 +144,12 @@
                             <td class="col-paciente">${nome}</td>
                             <td>${procedimento}</td>
                             <td>${prob}</td>
-                            <td><button class="btn-acao" onclick="confirmarAgendamento(${a.id})">Marcar Falta</button></td>
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
+                            <td>${botaoAcao}</td>
                         </tr>`;
                 });
 
             } catch (err) {
-<<<<<<< HEAD
-                corpo.innerHTML = '<tr><td colspan="5">Erro ao carregar agendamentos.</td></tr>';
-=======
                 corpo.innerHTML = '<tr><td colspan="6">Erro ao carregar agendamentos.</td></tr>';
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
                 console.error(err);
             }
         }
@@ -256,17 +157,10 @@
         async function confirmarAgendamento(id) {
             const res = await fetch(`${API}/api/agendamentos/${id}/falta`, { method: 'PATCH' });
             if (res.ok) {
-<<<<<<< HEAD
-                alert('Agendamento confirmado!');
-                carregarPainel();
-            } else {
-                alert('Erro ao confirmar.');
-=======
                 alert('Falta registrada com sucesso!');
                 carregarPainel();
             } else {
                 alert('Erro ao registrar falta.');
->>>>>>> f51e9203fa18db3578385efc49ddf767f256b0b6
             }
         }
 
