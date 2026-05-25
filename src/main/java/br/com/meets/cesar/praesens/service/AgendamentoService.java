@@ -60,8 +60,14 @@ public class AgendamentoService {
 
     public void registrarFalta(Long idAgendamento) {
         agendamentoRepository.findById(idAgendamento).ifPresent(agendamento -> {
-            PacienteModel paciente = agendamento.getPaciente();
+            if("CANCELADO".equals(agendamento.getStatus())){
+                return;
+            }
 
+            agendamento.setStatus("CANCELADO");
+            agendamentoRepository.save(agendamento);
+            
+            PacienteModel paciente = agendamento.getPaciente();
             paciente.setHistorico_NoShow(paciente.getHistorico_NoShow() + 1);
          
             int honraAtual = paciente.getScore_Honra();
